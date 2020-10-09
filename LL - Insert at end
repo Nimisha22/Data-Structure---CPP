@@ -1,0 +1,48 @@
+Function will take an integer as an input parameter and insert a node containing that value at the end of the list.
+
+Input 
+An integer value.
+
+Output 
+The updated linked list with the value inserted.
+
+Sample Input 
+0->1->2
+3
+
+Sample Output 
+0->1->2->3
+
+-----------------------------------------------------------------
+Code
+
+#include "LinkedList.h"
+#include <iostream>
+using namespace std;
+
+//Inserts a value at the end of the list
+void LinkedList::insertAtTail(int value) {
+  Node *new_Node = new Node;
+  new_Node -> data = value;
+  new_Node -> nextElement = NULL;
+  Node *temp = head;
+  if (temp == NULL)
+     head = new_Node;
+  else {
+      while(temp -> nextElement != NULL) {
+          temp = temp -> nextElement;
+      }
+      temp -> nextElement = new_Node;
+  }     
+}
+
+int main() {
+  LinkedList list;
+  srand(time(NULL)); // seed to produce random numbers everytime
+  int num = 0;
+  for (int i = 1; i < 6; i++) {
+    num = rand() % 10 + 1; //generating random numbers in range 1 to 10
+    list.insertAtTail(num); // inserting value at the tail of the list
+    list.printList();
+  }
+}
