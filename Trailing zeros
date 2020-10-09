@@ -1,0 +1,22 @@
+Factorial of a number N, written as N! is the product of all numbers from 1 to N. That is N! = 1 x 2 x ... N
+
+For example, 5! is 120, 10! is 3628800 and 17! is 355687428096000. As can be seen these numbers grow very fast. For even modest values of n, n! may not be representable exactly in programming languages with fixed integer sizes.
+
+Write a function that determines the number of trailing zeros in the factorial of the input number.
+
+----------------------------------------------------------------
+Code 
+
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	int n, ans = 0;
+	cin >> n;
+	while(n){
+		ans += n/5;
+		n /= 5;
+	}
+	cout << ans <<"\n";
+}
