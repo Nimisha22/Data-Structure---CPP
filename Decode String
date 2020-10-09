@@ -1,0 +1,79 @@
+Given a sequence consisting of 'I' and 'D' where 'I' denotes increasing sequence and 'D' denotes the descreasing sequence.
+Write a program that decodes the given sequence to construct minimum number without repeated digits.
+
+Sample Input 1:
+IDIDII
+
+Sample Output 1:
+1325467
+
+Sample Input 2:
+DDDD
+
+Sample Output 2:
+54321
+
+----------------------------------------------------------
+Code 
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+void PrintPattern(string arr) {
+    int curr_max = 0;
+    int last_entry = 0;
+    int j;
+    for(int i = 0; i < arr.length(); i++) {
+        int noOfNextD = 0;
+        switch(arr[i]) {
+            case 'I':
+               j = i + 1;
+               while (arr[j] == 'D' && j < arr.length()) {
+                   noOfNextD++;
+                   j++;
+               }
+               if (i==0) {
+                   curr_max = noOfNextD + 2;
+                   cout << ++last_entry;
+                   cout << curr_max;
+                   last_entry = curr_max;
+               } else {
+                   curr_max = curr_max + noOfNextD + 1;
+                   last_entry = curr_max;
+                   cout << last_entry;
+               } 
+               for (int k = 0; k < noOfNextD; k++) {
+                   cout << --last_entry;
+                   i++;
+               }
+               break;
+               
+            case 'D':
+               if (i == 0) {
+                   j = i + 1;
+                   while (arr[j] == 'D' && j < arr.length()) {
+                       noOfNextD++;
+                       j++;
+                   }
+                   curr_max = noOfNextD + 2;
+                   cout << curr_max << curr_max - 1;
+                   last_entry = curr_max - 1;
+               } else {
+                   cout << last_entry - 1;
+                   last_entry--;
+               }
+               break;
+        }
+    }
+    cout << endl;
+}
+
+int main() {
+    string str;
+    cin >> str;
+    PrintPattern(str);
+    return 0;
+}
