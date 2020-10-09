@@ -1,0 +1,57 @@
+Input 
+A value to be searched.
+
+Output 
+true if the value is found, false otherwise.
+
+Sample Input 
+5->90->10->4 
+4
+
+Sample Output 
+true
+
+----------------------------------
+Code 
+
+#include "LinkedList.h"
+#include <bits/stdc++.h> 
+using namespace std;  
+
+// function to check if element exists in the list
+bool LinkedList::search(int value) {
+  Node *current = head; // Initialize current  
+    while (current != NULL)  {  
+        if (current->data == value)  
+            return true;  
+        current = current->nextElement;  
+    }  
+    return false;  
+}
+
+
+
+int main() {
+  LinkedList list;
+  srand(time(NULL));
+  int num = 0;
+  
+  for (int i = 1; i < 6; i++) {
+    num = rand() % 10 + 1;
+    list.insertAtTail(num); // inserting value in the list
+    
+  }
+  
+    bool exist = false; // exist it true only if element exists
+    for (int j = 0; j < 5; j++) {
+        num = rand() % 10 + 1;
+    
+    exist = list.search(num); // Calling search function
+    
+    if (exist) { // only true if element exists
+      cout << "true" << endl;
+    } else {
+      cout << "false" << endl;
+    }
+  }
+}
