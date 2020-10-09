@@ -1,0 +1,42 @@
+#include "LinkedList.h"
+#include <iostream>
+using namespace std;
+
+bool LinkedList::Delete(int value) {
+    Node *temp = head;
+    Node *prev;
+    
+    if (temp != NULL && temp->data == value) { 
+        head = temp->nextElement;  
+        free(temp);               
+        return true; 
+    } 
+  
+    while (temp != NULL && temp->data != value) 
+    { 
+        prev = temp; 
+        temp = temp->nextElement; 
+    } 
+  
+    // If key was not present in linked list 
+    if (temp == NULL) 
+       return false; 
+  
+    return false;
+} //end of delete()
+
+
+
+int main() {
+
+  LinkedList list;
+  for (int i = 1; i <= 5; i++) {
+    list.insertAtTail(i); // inserting value in list
+    
+  }
+
+  bool result = list.Delete(4); //calling delete function to delete 4
+
+  cout << result;
+  return 0;
+}
