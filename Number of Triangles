@@ -1,0 +1,34 @@
+In a triangle, the sum of two sides is always greater than the third side. i.e a, b and c are sides of a triangle if all the three conditions are true
+      a + b > c    
+      b + c > a
+      c + a > b
+Write a function to count how many triangles are possible within a given range.
+
+Sample input
+1, 50
+
+Sample output
+9500
+
+-----------------------------------------------------------------------------
+Code
+
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int a, b, c;
+    int start, end;
+    int sum = 0;
+    cin >> start >> end;
+    for (int a = start; a <= end; a++) {
+        for (int b = start; b < a; b++) {
+            for (int c = start; c < b; c++) {
+                if (b + c > a && a + b > c && a + b > c)
+                   sum += 1;
+            }
+        }
+    }
+    cout << sum;
+}
