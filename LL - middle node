@@ -1,0 +1,73 @@
+/* This question is solved using 2 approaches, approach 2 is commented */
+
+#include <iostream> 
+using namespace std; 
+  
+ 
+struct Node { 
+    int data; 
+    struct Node* next; 
+}; 
+  
+
+Node* newLNode(int data) { 
+    Node* temp = new Node; 
+    temp->data = data; 
+    temp->next = NULL; 
+    return temp; 
+} 
+  
+/* Appoach 2
+// Function for finding midpoint recursively 
+void midpoint_util(Node* head, int* n, Node** mid) { 
+    if (head == NULL) { 
+        *n = (*n) / 2; 
+        return; 
+    } 
+  
+    *n = *n + 1; 
+  
+    midpoint_util(head->next, n, mid); 
+ 
+    *n = *n - 1; 
+    if (*n == 0) { 
+        *mid = head; 
+    } 
+} 
+  
+Node* midpoint(Node* head) { 
+    Node* mid = NULL; 
+    int n = 1; 
+    midpoint_util(head, &n, &mid); 
+    return mid; 
+} 
+ 
+*/ 
+ 
+// Approach 1
+void printMiddle(struct Node *head)  {  
+    struct Node *slow_ptr = head;  
+    struct Node *fast_ptr = head;  
+  
+    if (head != NULL)  {  
+        while (fast_ptr != NULL && fast_ptr->next != NULL)  {  
+            fast_ptr = fast_ptr->next->next;  
+            slow_ptr = slow_ptr->next;  
+        }  
+        cout << slow_ptr->data;  
+    }  
+} 
+
+
+int main() { 
+    Node* head = newLNode(7); 
+    head->next = newLNode(14); 
+    head->next->next = newLNode(10); 
+    head->next->next->next = newLNode(21); 
+
+    //Node* result = midpoint(head); 
+    //cout << result->data << endl; 
+    
+    printMiddle(head);
+    return 0; 
+} 
