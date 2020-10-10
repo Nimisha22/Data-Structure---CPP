@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+    public:
+        int data;
+    Node * next;    
+};
+
+
+
+Node * insert(Node * head,int num) {
+     Node * n = new Node();
+     n->data = num;
+     n->next = NULL;
+     if(head != NULL)
+         n->next =  head;
+     head = n;
+     return head;
+
+}
+
+void print_list(Node * head) {
+    cout << "The list is:";
+    Node * temp = head;
+    while(temp != NULL){
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    Node * head = new Node();
+    head = NULL;
+    int n, i, x;
+    cout << "How many numbers?" << endl;
+    cin >> n;
+    for(int i = 0; i < n; i++) {
+        cout << "Enter:" << endl;
+        cin >> x;
+        head = insert(head, x);
+        print_list(head);
+    }
+    return 0;
+}
