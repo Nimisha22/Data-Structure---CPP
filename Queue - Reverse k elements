@@ -1,0 +1,76 @@
+Problem Statement 
+Implement the function myQueue reverseK(myQueue queue, int k) which takes a queue and a number k as input 
+and reverses the first k elements of the queue. An illustration is also provided for your understanding.
+
+Input 
+A queue and an integer k such that 0 ≤ k ≤ size of queue
+
+Output 
+Queue with first k elements reversed
+
+Sample Input 
+[1,2,3,4,5,6,7,8,9,10]
+5
+
+Sample Output 
+[5,4,3,2,1,6,7,8,9,10]
+
+-------------------------------------------------------
+Code
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+
+void reverseQueueFirstKElements( 
+    int k, queue<int>& Queue)  { 
+    if (Queue.empty() == true
+        || k > Queue.size()) 
+        return; 
+    if (k <= 0) 
+        return; 
+  
+    stack<int> Stack; 
+  
+    // Push the first K elements into a Stack
+    for (int i = 0; i < k; i++) { 
+        Stack.push(Queue.front()); 
+        Queue.pop(); 
+    } 
+  
+    // Enqueue the contents of stack at the back of the queue
+    while (!Stack.empty()) { 
+        Queue.push(Stack.top()); 
+        Stack.pop(); 
+    } 
+  
+    // Remove the remaining elements and enqueue them at the end of the Queue
+    for (int i = 0; i < Queue.size() - k; i++) { 
+        Queue.push(Queue.front()); 
+        Queue.pop(); 
+    } 
+} 
+
+  
+// Utility Function to print the Queue
+void Print(queue<int>& Queue)  { 
+    while (!Queue.empty()) { 
+        cout << Queue.front() << " "; 
+        Queue.pop(); 
+    } 
+} 
+  
+ 
+int main() { 
+    queue<int> Queue; 
+    Queue.push(1); 
+    Queue.push(2); 
+    Queue.push(3); 
+    Queue.push(4); 
+    Queue.push(5); 
+
+  
+    int k = 5; 
+    reverseQueueFirstKElements(k, Queue); 
+    Print(Queue); 
+} 
