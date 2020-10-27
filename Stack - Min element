@@ -1,0 +1,97 @@
+Problem Statement 
+You have to implement the minStack class which will have a min() function. 
+Whenever min() is called, the minimum value of the stack is returned in O(1) time.
+The element is not popped from the stack. Its value is simply returned.
+
+//minStack = {9, 3, 1, 4, 2, 5}
+1
+
+-----------------------------------------------------
+Code
+
+#include <bits/stdc++.h> 
+using namespace std; 
+
+
+struct MyStack { 
+	stack<int> s; 
+	int minEle; 
+
+	void getMin() { 
+		if (s.empty()) 
+			cout << "Stack is empty\n"; 
+		else
+			cout <<"Minimum Element in the stack is: " << minEle << "\n"; 
+	} 
+
+
+	void peek() { 
+		if (s.empty()) { 
+			cout << "Stack is empty "; 
+			return; 
+		} 
+		int t = s.top(); 
+		cout << "Top Most Element is: "; 
+		(t < minEle)? cout << minEle: cout << t; 
+	} 
+
+
+	void pop() { 
+		if (s.empty()) { 
+			cout << "Stack is empty\n"; 
+			return; 
+		} 
+
+		cout << "Top Most Element Removed: "; 
+		int t = s.top(); 
+		s.pop(); 
+
+		// Minimum will change as the minimum element of the stack is being removed. 
+		if (t < minEle) { 
+			cout << minEle << "\n"; 
+			minEle = 2*minEle - t; 
+		} 
+		else
+			cout << t << "\n"; 
+	} 
+
+
+	void push(int x) { 
+		// Insert new number into the stack 
+		if (s.empty()) { 
+			minEle = x; 
+			s.push(x); 
+			cout << "Number Inserted: " << x << "\n"; 
+			return; 
+		} 
+
+		// If new number is less than minEle 
+		if (x < minEle) { 
+			s.push(2 * x - minEle); 
+			minEle = x; 
+		} 
+
+		else
+		s.push(x); 
+
+		cout << "Number Inserted: " << x << "\n"; 
+	} 
+}; 
+
+
+int main() { 
+	MyStack s; 
+    s.push(5);
+    s.push(2);
+    s.push(4);
+    s.push(1);
+    s.push(3);
+    s.push(9);
+    s.getMin();
+	s.pop(); 
+	s.pop(); 
+	s.pop(); 
+	s.getMin(); 
+ 
+	return 0; 
+} 
