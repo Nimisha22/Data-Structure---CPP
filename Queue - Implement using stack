@@ -1,0 +1,76 @@
+Problem Statement 
+You have to implement enqueue() and dequeue() functions in the newQueue class using the myStack the class we created earlier.
+
+Input 
+enqueue(int value): A value to insert into the queue.
+dequeue(): Does not require inputs.
+
+Output 
+enqueue(): Returns True after inserting the value into the queue.
+dequeue(): Pops out and returns the oldest value in the queue.
+
+Sample Input 
+value = 5 // queue = [1, 2, 3, 4] 
+enqueue(value)
+dequeue()
+
+Sample Output 
+True //queue = [1, 2, 3, 4, 5]
+1 // queue = [2, 3, 4, 5]
+
+---------------------------------------------------------------
+Code
+
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+struct Queue { 
+    stack<int> s1, s2; 
+  
+    void enQueue(int x) { 
+        // Move all elements from s1 to s2 
+        while (!s1.empty()) { 
+            s2.push(s1.top()); 
+            s1.pop(); 
+        } 
+  
+        s1.push(x); 
+  
+        // Push everything back to s1 
+        while (!s2.empty()) { 
+            s1.push(s2.top()); 
+            s2.pop(); 
+        } 
+    } 
+ 
+ 
+    int deQueue() { 
+        if (s1.empty()) { 
+            cout << "Q is Empty"; 
+            exit(0); 
+        } 
+   
+        int x = s1.top(); 
+        s1.pop(); 
+        return x; 
+    } 
+}; 
+  
+  
+int main() { 
+    Queue q; 
+    q.enQueue(1); 
+    q.enQueue(2); 
+    q.enQueue(3); 
+    q.enQueue(4);
+    q.enQueue(5);
+  
+    cout << q.deQueue();
+    cout << q.deQueue(); 
+    cout << q.deQueue(); 
+    cout << q.deQueue(); 
+    cout << q.deQueue(); 
+    cout << q.deQueue(); 
+    
+    return 0; 
+} 
