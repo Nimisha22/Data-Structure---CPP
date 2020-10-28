@@ -1,0 +1,51 @@
+Problem Statement 
+Implement a function string* findBin(int n) which will generate binary numbers from 11 to nn stored in an array of type string by making use of a queue.
+
+Input 
+A positive integer n
+
+Output 
+An array of type string (result) containing binary numbers from 1 up to n
+
+Sample Input 
+3
+
+Sample Output 
+{"1","10","11"}
+
+------------------------------------------
+Code
+
+#include <iostream>
+#include <cstdlib>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+string* findBin(int n, string* binary_forms) {
+    // binary_forms = new string[n];
+    queue<string> q; 
+    q.push("1"); 
+  
+    for (int i = 0; i < n; i++) { 
+        string s1 = q.front(); 
+        q.pop(); 
+        binary_forms[i] = s1; 
+  
+        string s2 = s1; 
+        q.push(s1.append("0")); 
+        q.push(s2.append("1")); 
+        
+    }
+    return binary_forms;
+} 
+
+
+int main() {
+  int n = 4;
+  string *binary_forms = new string[n];
+  auto output = findBin(n, binary_forms);
+  for (int i = 0; i < n; i++)
+    cout << output[i] << " ";
+}
