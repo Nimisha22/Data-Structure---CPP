@@ -1,0 +1,24 @@
+#include "BST.h"
+
+int findMin(Node * rootNode) {
+    Node* currentNode = rootNode; 
+    Node* parent;
+
+    while (currentNode->leftChild) {
+        parent = currentNode;
+        currentNode = currentNode->leftChild;
+    }
+    return currentNode->value;
+    
+}
+
+int main() {
+  BinarySearchTree bsT(6);
+  bsT.insertBST(3);
+  bsT.insertBST(8);
+  bsT.insertBST(12);
+  bsT.insertBST(10);
+  bsT.insertBST(14);
+  cout << findMin(bsT.getRoot()) << endl;
+  return 0;
+}
