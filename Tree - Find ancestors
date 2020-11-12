@@ -1,0 +1,58 @@
+Problem Statement 
+Implement the string findAncestors(Node *rootNode, int k) function, which will find the ancestors of the node 
+whose value is “k”. Here rootNode is the root node of a binary search tree, and k is an integer value of node
+whose ancestors you need to find. An illustration is also given. Your code is evaluated on the tree given in the example.
+
+Output 
+Returns all the ancestors of k in the binary search tree in a string separated by a comma.
+
+Sample Input 
+bst = {
+        6 -> 4,9
+    4 -> 2,5
+    9 -> 8,12
+    12 -> 10,14
+}
+where parent -> leftChild,rightChild
+ 
+k = 10
+
+Sample Output 
+12,9,6,
+
+-----------------------------------------------------------
+Code
+
+#include "BST.h"
+#include <string>
+
+
+string findAncestors(Node *rootNode, int k) {
+    string result = "";
+    if(rootNode == nullptr) {
+        return result;
+    }
+    Node *currentNode = rootNode;
+    while(currentNode != nullptr) {
+        if(currentNode->value == k) {
+            return result;
+        } else {
+            result = to_string(currentNode->value) + ", " + result;
+            if(currentNode->value > k) {
+                currentNode = currentNode->leftChild;
+            } else {
+                currentNode = currentNode->rightChild;
+            }
+        }
+    }
+    return "";
+}
+
+int main() {
+  BinarySearchTree BST(6);
+  BST.insertBST(1);
+  BST.insertBST(133);
+  BST.insertBST(12);
+    
+  cout << findAncestors(BST.getRoot(),12) << endl;
+}
