@@ -1,0 +1,57 @@
+Problem Statement 
+Implement a function int findKthMax(Node* rootNode, int k,int nodes), which will take the root of a BST, 
+any number “k” as an input, and the total number of nodes in the tree. It will return kth maximum number from that tree.
+
+BST cannot have duplicate node values.
+
+Output 
+Returns kth maximum value from the given tree
+
+Sample Input 
+bst = {
+    6 -> 4,9
+    4 -> 2,5
+    9 -> 8,12
+    12 -> 10,14
+}
+where parent -> leftChild,rightChild
+ 
+k = 3
+
+Sample Output 
+10
+
+----------------------------------------------------------------------
+Code
+
+#include "ArrayList.h"
+#include "BST.h"
+#include<iostream>
+
+void inOrderTraversal(Node* rootNode, ArrayList* result) {
+    if (rootNode == NULL)
+        return;
+        
+    inOrderTraversal(rootNode->leftChild, result);
+    result->insert(rootNode->value);
+    inOrderTraversal(rootNode->rightChild, result);
+
+}
+
+int findKthMax(Node* rootNode, int k,int nodes) {
+    ArrayList* inorderBST = new ArrayList(nodes);
+    inOrderTraversal(rootNode, inorderBST);
+    return inorderBST->getAt(nodes - k);
+}
+
+int main(){
+ 
+  BinarySearchTree bsT(6);
+        bsT.insertBST(4);
+        bsT.insertBST(9);
+        bsT.insertBST(5);
+        bsT.insertBST(2);
+        bsT.insertBST(8);
+  
+  cout << findKthMax(bsT.getRoot(),3,6) << endl;
+}
