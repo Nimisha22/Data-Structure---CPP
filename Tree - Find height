@@ -1,0 +1,48 @@
+Problem Statement 
+Implement a function int findHeight(Node* rootNode), which returns the height of a given binary search tree. 
+
+Height of a Node — the number of edges between a node and its deepest descendent
+Height of a Tree — Height of its root node
+Also, keep in mind that the height of an empty tree and leaf nodes is zero.
+
+Output 
+Returns the maximum depth or height of a binary tree
+
+Sample Input 
+bst = {
+    6 -> 4,9
+    4 -> 2,5
+    9 -> 8,12
+    12 -> 10,14
+}
+where parent -> leftChild,rightChild
+
+Sample Output 
+3
+
+------------------------------------------------------
+Code
+
+#include "BST.h"
+
+int findHeight(Node * rootNode) {
+    if(rootNode == nullptr) {
+        return -1;
+    }
+    return 1 + max(
+                    findHeight(rootNode->leftChild),
+                    findHeight(rootNode->rightChild)
+                );
+}
+
+int main(){
+
+    BinarySearchTree BST(6);
+    BST.insertBST(4);
+    BST.insertBST(9);
+    BST.insertBST(5);
+    BST.insertBST(2);
+    BST.insertBST(8);
+    BST.insertBST(12);
+    cout <<  findHeight(BST.getRoot()) << endl;
+}
