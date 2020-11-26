@@ -1,0 +1,72 @@
+Problem Statement 
+Implement a function findKSmallest(int arr[], int size, int k) that takes an unsorted integer array as input
+and returns the “k” smallest elements in the array using a Heap. The minHeap class is prepended to this exercise, 
+so feel free to use it! 
+
+Output 
+Returns integer vector that contains the first k smallest elements from the given array.
+
+Sample Input 
+7
+9
+4
+7
+1
+-2
+6
+5      
+3
+
+Sample Output 
+-2,1,4
+
+-----------------------------------------------
+Code
+
+#include "MinHeap.h"
+#include <queue>
+#include <iostream>
+
+using namespace std;
+
+vector<int> findKSmallest(int  arr[], int size, int k){
+  
+  vector<int> output(k);
+  priority_queue<int> heap;
+  for (int i = 0; i < size; i++) {
+      heap.push(arr[i]);
+      if ( heap.size() > k) {
+          heap.pop();
+      }
+  }
+  int i = k - 1;
+  while (!heap.empty()) {
+      output[i] = heap.top();
+      heap.pop();
+      i--;
+  }
+  return output;
+}
+
+
+int main() {
+    // Accept input from the user and display the result
+    int n; 
+    cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    int k;
+    cin >> k;
+    
+    vector<int> kSmallest = findKSmallest(arr, n, k);
+    string result = "";
+    
+    for (auto element : kSmallest) {
+        result = result + to_string(element) + ",";
+    }
+    result.pop_back();
+    cout << result;
+    return 0;
+}
