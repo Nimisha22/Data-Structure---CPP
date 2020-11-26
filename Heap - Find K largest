@@ -1,0 +1,76 @@
+Problem Statement 
+Implement a function findKLargest(int arr[], int size, int k) that takes an unsorted integer array
+as input and returns the kk largest elements in the array using a Max Heap. 
+The maxHeap class is prepended in this exercise, so feel free to use it! 
+
+Output
+Returns integer vector containing first k largest elements from arr
+
+Sample Input 
+7
+9
+4
+7
+1
+-2
+6
+5       
+3
+
+Sample Output 
+9,7,6
+
+Explanation 
+As “k” is 3, so we need to find the top 3 maximum elements from given array. 
+9 is the largest value in the array, while 7 is the second maximum, and 6 is the third max.
+
+---------------------------------------------------------------------------
+Code
+
+#include "MaxHeap.h"
+#include <queue>
+#include <iostream>
+
+using namespace std;
+
+vector<int> findKLargest(int  arr[], int size, int k){
+  
+  vector<int> output(k);
+  priority_queue<int> heap;
+  for (int i = 0; i < size; i++) {
+      heap.push(arr[i]);
+      
+  }
+ 
+  int i = 0;
+  while (i < k) {
+      output[i] = heap.top();
+      heap.pop();
+      i++;
+  }
+  return output;
+}
+
+
+int main() {
+    // Accept input from the user and display the result
+    int n; 
+    cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    int k;
+    cin >> k;
+    
+    vector<int> kLargest = findKLargest(arr, n, k);
+    string result = "";
+    
+    for (auto element : kLargest) {
+        result = result + to_string(element) + ",";
+    }
+    result.pop_back();
+    cout << result;
+    return 0;
+}
+
