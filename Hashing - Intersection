@@ -1,0 +1,75 @@
+The intersection is one of the most popular operations which can be performed on data sets. Now, you will be implementing intersection for linked lists! 
+
+Intersection 
+Given two lists, A and B, the intersection is the largest list, which contains all the elements that are common to both the sets, but duplicates are not allowed.
+
+The Intersection( LinkedList list1, LinkedList list2) the function takes two linked lists and returns all the elements that are common between two linked lists.
+
+Input 
+Two linked lists.
+
+Output 
+A list containing the intersection of the two lists.
+
+Sample Input 
+Input = 3
+10
+20
+30
+4
+11
+20
+30
+22
+
+Sample Output 
+20->30->null
+
+------------------------------------------------------------------------------------------
+Code
+
+#include <iostream>
+#include <list>
+#include <string>
+#include <unordered_set>
+
+using namespace std;
+
+string Intersection(list<int> list1, list<int> list2) {
+    unordered_set<int> set1;
+    unordered_set<int> listIntersection;
+    list<int> :: iterator itr;
+    for (itr = list1.begin(); itr != list1.end(); itr++) {
+        if (set1.find(*itr) == set1.end())
+            set1.insert(*itr);
+    }
+    for (itr = list2.begin(); itr != list2.end(); itr++) {
+        if (set1.find(*itr) != set1.end())
+            listIntersection.insert(*itr);
+    }
+    
+    unordered_set<int> :: iterator it;
+    string slistIntersection = " ";
+    for (it = listIntersection.begin(); it != listIntersection.end(); it++)
+        slistIntersection = slistIntersection + to_string(*it) + "->";
+    slistIntersection = slistIntersection + "null";
+    return slistIntersection;
+}
+
+int main() {
+    list<int> list1;
+    list<int> list2;
+    int size1, size2;
+    cin >> size1;
+    int num;
+    for (int i = 0; i < size1; i++)  {
+        cin >> num;
+        list1.push_back(num);
+    }
+    cin >> size2;
+    for (int i = 0; i < size2; i++) {
+        cin >> num;
+        list2.push_back(num);
+    }
+    cout << Intersection(list1, list2) << endl;
+}
