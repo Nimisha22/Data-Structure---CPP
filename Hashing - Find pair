@@ -1,0 +1,68 @@
+Problem Statement 
+In this problem, you have to implement the string findPair(int* arr, int size) function, which will find two pairs [a, b] and [c, d] in an array such that :
+
+a+b = c+d
+
+You only have to find any two pairs in the array which satisfies the above condition.
+
+Input 
+An array of distinct integers and their size.
+
+Output 
+string containing two pairs (a, b) and (c, d) which satisfy a + b = c + d in {a,b}{c,d}format
+
+Input = 6
+3
+4
+7
+1
+12
+9
+
+Output = {{4,12},{7,9}}
+
+---------------------------------------------------------------------
+Code
+
+#include <unordered_map>
+#include <string>
+#include <iostream>
+#include <sstream>  
+#include <stdio.h>
+#include <cstdlib>
+
+using namespace std;
+
+string findPair(int* arr, int size) {
+    unordered_map<int, pair<int, int>> pairs;
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            int sum = arr[i] + arr[j];
+            if (pairs.find(sum) == pairs.end()) {
+                pairs[sum] = make_pair(i, j);
+            }
+            
+            else {
+                pair<int, int> pp = pairs[sum];
+                return "{{" + to_string(arr[pp.first]) + "," + to_string(arr[pp.second]) + "}" + ",{" + to_string(arr[i]) + "," + to_string(arr[j]) + "}}";
+
+            }
+        }
+    }
+    
+    return "-1";
+}
+
+
+int main() {
+    // Your code here
+    int size;
+    cin >> size;
+    int arr[size];
+    
+    for (int i = 0; i < size; i++) {
+        cin >> arr[i];
+    }
+    cout << findPair(arr, size) << endl;;
+    return 0;
+}
