@@ -1,0 +1,71 @@
+Problem Statement 
+By definition, (a, b) and (c, d) are symmetric pairs if, a = d and b = c. 
+In this problem, you have to implement the string findSymmetric(int arr[][2], int size) function, 
+which will find all the symmetric pairs in the given array.
+
+Input 
+A 2-D Array and the number of rows in the array.
+
+Note: The first value in the pair should be unique.
+
+Output 
+A string containing all the symmetric pairs of integers in the input array.
+
+Sample Input 
+5
+3
+4
+1
+2
+5
+9
+4
+3
+9
+5
+
+
+Sample Output
+ {4, 3}{3, 4}{9, 5}{5, 9}
+ 
+ ---------------------------------------------------------
+ 
+ #include <iostream>
+#include <unordered_map>
+#include <string>
+
+using namespace std;
+
+// Function to find symmetric pairs
+string findSymmetric(int arr[][2], int size) {
+    // Your code here
+    string symmetric_pairs = "";
+   unordered_map<int, int> pairs;
+   for (int i = 0; i < size; i++) {
+       int a = arr[i][0];
+       int b = arr[i][1];
+       
+       if ((pairs.find(b) != pairs.end()) && (pairs[b] == a)) {
+           symmetric_pairs += "{" + to_string(a) + ',' + to_string(b) + "}" + "{" + to_string(b) + ',' + to_string(a) + "}";
+       } 
+       else {
+           pairs[a] = b;
+       }
+   }
+   
+   return symmetric_pairs;
+}
+
+
+int main() {
+    // Accept input from the user and display the result
+    int rows, cols = 2;
+    cin >> rows;
+    int arr[rows][2];
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++)
+            cin >> arr[i][j];
+    }
+    cout << findSymmetric(arr, rows);
+    return 0;
+}
