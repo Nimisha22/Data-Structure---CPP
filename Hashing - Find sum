@@ -1,0 +1,73 @@
+Problem Statement 
+Implement a function findSum(int arr[], int value, int size) which takes an array arr, 
+a number value and size of the array as input and returns an array of two numbers that add up to value. 
+In case there is more than one pair in the array containing numbers that add up to value, 
+you are required to return only one such pair. If no such pair found then simply return the array.
+
+Input 
+An array, value, and size of the array
+
+Output 
+An array with two integers that add up to value
+
+Sample Input 
+Input = 8
+1
+21
+3
+14
+5
+60
+7
+6
+81
+
+Sample Output = Number 1 = 60                                                                   
+Number 2 = 21                                                                   
+Sum = 81
+
+---------------------------------------------------------------------
+
+Code
+
+#include <iostream>
+#include <unordered_set>
+
+using namespace std;
+
+int * findSum(int arr[], int sum, int size) { 
+    int *pair = new int[size];
+    
+    unordered_set<int> elements;
+    for (int i = 0; i < size; i++)
+        elements.insert(arr[i]);
+    for (int i = 0; i < size; i++) {
+        
+        if (elements.find(sum - arr[i]) != elements.end()) {
+            pair[0] = sum - arr[i];
+            pair[1] = arr[i];
+            return pair;
+        }
+    }
+    
+    return arr;
+}
+
+int main(){
+    // Accept input from the user and display the results
+    int size;
+    cin >> size;
+    int arr[size];
+    for (int i = 0; i < size; i++) 
+        cin >> arr[i];
+    int sum;
+    cin >> sum;
+    int *pair;
+    pair = findSum(arr, sum, size);
+    cout << "Number 1 = " << pair[0] << endl;
+    cout << "Number 2 = " << pair[1] << endl;
+    cout << "Sum = " << sum << endl;
+    
+    
+    return 0;
+}
