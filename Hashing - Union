@@ -1,0 +1,81 @@
+Problem Statement 
+The union is one of the most popular operations which can be performed on data sets. Now, you will be implementing a union for linked lists! 
+
+Union 
+Given two lists, A and B, the union is the list that contains elements or objects that belong to either A or to B or to both, but duplicates are not allowed.
+
+The Union( LinkedList list1, LinkedList list2) the function takes two linked lists and returns their union. 
+
+Input 
+Linked List
+
+Output 
+A list containing the union of the two lists.
+
+Sample Input 
+5  // size                                                                            
+10                                                                              
+20                                                                              
+80                                                                              
+20                                                                              
+60                                                                              
+7      // size                                                                         
+10                                                                              
+20                                                                              
+80                                                                              
+60                                                                              
+15  
+30
+45
+
+
+Sample Output 
+15->30->45->10->80->20->60->null
+
+-------------------------------------------------------
+Code
+
+#include <iostream>
+#include <list>
+#include <string>
+#include <unordered_set>
+
+using namespace std;
+
+string Union(list<int> list1, list<int> list2) {
+    unordered_set<int> listUnion;
+    list<int> :: iterator itr;
+    for (itr = list1.begin(); itr != list1.end(); itr++) {
+        if (listUnion.find(*itr) == listUnion.end())
+            listUnion.insert(*itr);
+    }
+    for (itr = list2.begin(); itr != list2.end(); itr++) {
+        if (listUnion.find(*itr) == listUnion.end())
+            listUnion.insert(*itr);
+    }
+    unordered_set<int> :: iterator it;
+    string slistUnion = " ";
+    for (it = listUnion.begin(); it != listUnion.end(); it++)
+        slistUnion = slistUnion + to_string(*it) + "->";
+    slistUnion = slistUnion + "null";
+    return slistUnion;
+}
+
+
+int main() {
+    list<int> list1;
+    list<int> list2;
+    int size1, size2;
+    cin >> size1;
+    int num;
+    for (int i = 0; i < size1; i++)  {
+        cin >> num;
+        list1.push_back(num);
+    }
+    cin >> size2;
+    for (int i = 0; i < size2; i++) {
+        cin >> num;
+        list2.push_back(num);
+    }
+    cout << Union(list1, list2) << endl;
+}
