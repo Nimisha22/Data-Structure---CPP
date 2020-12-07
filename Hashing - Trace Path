@@ -1,0 +1,72 @@
+Problem Statement 
+
+You have to implement the string tracePath(unordered_map<string, string> map) function, 
+which will take in an array of source-destination pairs and return the correct sequence 
+of the whole journey from the first city to the last.
+
+Input 
+An unordered_map of type <string, string> containing string pairs of source-destination cities.
+
+Output 
+A string of source-destination pairs in the correct order.
+
+Sample Input 
+4
+NewYork
+Chicago
+Boston
+Texas
+Missouri
+NewYork
+Texas
+Missouri
+
+Sample Output 
+Boston->Texas, Texas->Missouri, Missouri->NewYork, NewYork->Chicago
+
+---------------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+#include <unordered_map>
+
+using namespace std;
+
+string whole_destination(unordered_map <string, string> m, int n) {
+    int count = 1;
+    string source, dest;
+    string start = "", ans = "", s = "";
+    for (auto i : m) {
+        source = i.first;
+        dest = i.second;
+        while (m.find(dest) != m.end()){
+            dest = m[dest];
+            count += 1;
+        }
+        if (count == n) {
+            start = source;
+        //    break;
+        }
+    }
+    int j = 1;
+    while (j <= n) {
+        s += source + "->" + m[source] + ",";
+        source = m[source];
+        j += 1;
+    }
+    s.pop_back();
+    return s;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    string source, destination, ans;
+    unordered_map <string, string> m;
+    for (int i = 0; i < n; i++) {
+        cin >> source;
+        cin >> destination;
+        m[source] = destination;
+    }
+    ans = whole_destination(m, n);
+    cout << ans;
+}
