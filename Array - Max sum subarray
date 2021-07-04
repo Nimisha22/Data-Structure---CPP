@@ -16,6 +16,8 @@ Sample Output -
 Code - 
 ----------------------------------------------------------
 
+Kadane's Algo
+
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
