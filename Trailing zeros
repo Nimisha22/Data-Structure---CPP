@@ -20,3 +20,8 @@ int main() {
 	}
 	cout << ans <<"\n";
 }
+
+Basically you will only need 5 because what adds 0 at the end of a number is 10 and its powers. 10 is 2*5. 2 is plenty enough so only 5 does matter.
+For example,12! is 12/5 = 2.
+What happens when the n is more than 24 is that the factorial starts to have more fives i.e. 1000!, which means we can divide it by 5 further until n becomes 0. 
+1000/5 = 200. 200/5 = 40. 40/5 = 8. 8/5 = 1. Answer is sum of these quotients.
