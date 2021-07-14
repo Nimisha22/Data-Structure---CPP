@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        int rev = 0, no = x;
+        if (x < 0){
+            return false;
+        }
+        
+        else {
+            while(x > 0 && abs(rev) < INT_MAX / 10) {
+                rev = rev * 10 + x % 10;
+                x /= 10;
+            }
+            if(no == rev)
+                return true;
+            else 
+                return false;
+        }
+        
+    }
+};
+
+Runtime Error Message:
+Line 11: Char 27: runtime error: signed integer overflow: 998765432 * 10 cannot be represented in type 'int' (solution.cpp)
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior prog_joined.cpp:20:27
+
+To remove this error abs(rev) < INT_MAX / 10 was added in while
