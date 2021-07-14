@@ -1,0 +1,89 @@
+Given a binary tree, determine if it is height-balanced.
+
+For this problem, a height-balanced binary tree is defined as:
+
+a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+
+ 
+
+Example 1:
+Input: root = [3,9,20,null,null,15,7]
+Output: true
+
+Example 2:
+Input: root = [1,2,2,3,3,null,null,4,4]
+Output: false
+
+Example 3:
+Input: root = []
+Output: true
+
+---------------------------------------------------------------
+Recursive:
+
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if (root == nullptr) {
+            return true;
+        } else if (!(isBalanced(root->left) && isBalanced(root->right))) {
+            return false;
+        }
+        return abs(depth(root->right) - depth(root->left)) <= 1;
+    }
+    
+    int depth(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        } else {
+            return 1 + max(depth(root->right), depth(root->left));
+        }
+    }
+};
+
+--------------------------------------------------------
+
+Iterative:
+
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if (!root) return true;
+        
+        TreeNode* cur = root;
+        TreeNode* prev = nullptr;
+        
+        while (cur || !s.empty()) {
+            if (cur) {
+                s.push(cur);
+                cur = cur->left;
+            }
+            else {
+                cur = s.top();
+                
+                if (!cur->right || prev == cur->right) {
+                    int left = (m.find(cur->left) != m.end()) ? m[cur->left] : 0;
+                    int right = (m.find(cur->right) != m.end()) ? m[cur->right] : 0;
+                    
+                    if (abs(left - right) > 1) return false;
+                    
+                    m[cur] = 1 + max(left, right);
+                    
+                    prev = cur;
+                    cur = nullptr;
+                    
+                    s.pop();
+                }
+                else {
+                    cur = cur->right;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+private:
+    stack<TreeNode*> s;
+    unordered_map<TreeNode*, int> m; 
+};
