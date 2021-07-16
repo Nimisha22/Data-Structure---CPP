@@ -85,3 +85,21 @@ int main() {
 	return 0;
 }
 
+----------------------------------------------------
+Time Complexity: θ(nLogn) in all 3 cases (worst, average and best) 
+as merge sort always divides the array into two halves and takes linear time to merge two halves.
+Auxiliary Space: O(n)
+Algorithmic Paradigm: Divide and Conquer
+Sorting In Place: No in a typical implementation
+Stable: Yes
+
+Applications of Merge Sort 
+
+1. Merge Sort is useful for sorting linked lists in O(nLogn) time. 
+2. Inversion Count Problem
+3. Used in External Sorting
+
+Drawbacks of Merge Sort
+1. Slower comparative to the other sort algorithms for smaller tasks.
+2. Merge sort algorithm requires an additional memory space of 0(n) for the temporary array.
+3. It goes through the whole process even if the array is sorted.
