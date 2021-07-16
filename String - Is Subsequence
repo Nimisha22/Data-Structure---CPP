@@ -1,0 +1,58 @@
+Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+
+A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) 
+of the characters without disturbing the relative positions of the remaining characters. 
+(i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+
+Example 1:
+Input: s = "abc", t = "ahbgdc"
+Output: true
+
+Example 2:
+Input: s = "axc", t = "ahbgdc"
+Output: false
+
+----------------------------------------------------
+
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        
+        int j=0;
+        for(int i=0;i<t.length();i++){
+            if(t[i] == s[j])
+                j++;
+        }
+        return (j== s.length());  
+    }
+};
+
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Is Subsequence.
+Memory Usage: 6.4 MB, less than 33.49% of C++ online submissions for Is Subsequence.
+
+---------------------------------------------------------
+
+bool isSubsequence(string s, string t) {
+        int m = s.size(), n = t.size();
+        
+        vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, false));
+        
+        // base case.
+        for(int i = 0;i<= n;i++){
+            dp[0][i] = true;
+        }
+        
+        for(int i = 1;i<=m;i++){
+            for(int j = 1; j <= n;j++){
+                if(s[i-1] == t[j-1]){
+                    dp[i][j] = dp[i-1][j-1];
+                } else{
+                    dp[i][j] = dp[i][j-1];
+                }
+            }
+        }
+        return dp[m][n];
+    }
+
+Runtime: 4 ms, faster than 32.65% of C++ online submissions for Is Subsequence.
+Memory Usage: 6.4 MB, less than 33.49% of C++ online submissions for Is Subsequence.
