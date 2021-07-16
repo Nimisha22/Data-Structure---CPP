@@ -30,13 +30,14 @@ nums[i] != nums[i + 1] for all valid i.
 class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
-        int lo = 0, hi = nums.size()-1, mid;
+        int low = 0, high = nums.size() - 1, mid;
         
-        while (lo < hi) {
-            mid = lo + (hi - lo) / 2;
+        while (low < high) {
+            mid = low + (high - low) / 2;
             if (nums[mid] < nums[mid + 1]) 
-                lo = mid + 1;
-            else hi = mid;
+                low = mid + 1;
+            else 
+                high = mid;
         }
         
         return lo;
@@ -45,3 +46,15 @@ public:
 
 Runtime: 0 ms, faster than 100.00% of C++ online submissions for Find Peak Element.
 Memory Usage: 8.9 MB, less than 6.28% of C++ online submissions for Find Peak Element.
+
+binary search works for this problem. Look at mid. 
+If nums[mid] < nums[mid+1], then there has to be a peak element in the right side of mid.
+Either the numbers increase until we reach the end and then the last element will be a peak, 
+or at some point a number gets smaller and right there we will have a peak.
+Same for the left side of mid.
+
+Dry Run:
+                                                  0 < 3               2 < 3
+            mid = lo + (hi - lo) / 2;             mid = 0 + 1 = 1      mid = 2 + 0
+            if (nums[mid] < nums[mid + 1])        2 < 3 lo = 2         3 < 1  hi = 2
+                lo = mid + 1;
