@@ -74,3 +74,10 @@ public:
         return ele;
     }
 };
+
+// In the end again traverse thru array to check freq of element that we found as major
+// Test Case:
+// 1 2 3 4
+// major: 1 2 3 4
+// count: 1 1 1 1
+// But 4 is not the majority element
