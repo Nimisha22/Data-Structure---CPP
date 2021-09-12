@@ -46,3 +46,31 @@ public:
         return max1 >= 2 * max2 ? result : -1;
     }
 };
+
+----------------------------------------------------------
+// Moore's Voting Algo - O(n)
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+		// Initialize count variable to count the occurrence and ele variable to keep track of element which is being counted
+        int count = 0;
+        int ele = 0;
+        
+		
+        for(int i = 0; i < nums.size(); i++){
+			// if count is 0 then assign the current element to ele variable
+            if(count == 0){
+                ele = nums[i];
+            }
+            // if nums[i] equals to ele then increase the count or else decrease
+            if(ele == nums[i]){
+                count+= 1;
+            }else{
+                count-= 1;
+            }
+        }
+        
+        return ele;
+    }
+};
