@@ -1,0 +1,94 @@
+Given an integer array nums and an integer k, return true if nums has a continuous subarray of size at least two 
+whose elements sum up to a multiple of k, or false otherwise.
+
+An integer x is a multiple of k if there exists an integer n such that x = n * k. 0 is always a multiple of k.
+
+Example 1:
+Input: nums = [23,2,4,6,7], k = 6
+Output: true
+Explanation: [2, 4] is a continuous subarray of size 2 whose elements sum up to 6.
+
+Example 2:
+Input: nums = [23,2,6,4,7], k = 6
+Output: true
+Explanation: [23, 2, 6, 4, 7] is an continuous subarray of size 5 whose elements sum up to 42.
+42 is a multiple of 6 because 42 = 7 * 6 and 7 is an integer.
+
+Example 3:
+Input: nums = [23,2,6,4,7], k = 13
+Output: false
+ 
+Constraints:
+
+1 <= nums.length <= 105
+0 <= nums[i] <= 109
+0 <= sum(nums[i]) <= 231 - 1
+1 <= k <= 231 - 1
+
+---------------------------------------------------------------------
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        int sum = 0;
+        unordered_map<int, int> formalRemainders;
+        /**
+         * Initial the remainder is 0 at index -1
+         * To contain index 0 as a candidate.
+         */
+        formalRemainders[sum] = -1; 
+
+        for(int i=0; i<nums.size(); i++) {
+            sum += nums[i];
+            int remainder = sum % k;
+            if(formalRemainders.find(remainder) != formalRemainders.end()) {
+                // if already in map, not update the index value
+                if(i - formalRemainders[remainder] >= 2) {
+                    // check if the formal remainder index if far enough than i
+                    return true;
+                }
+            }
+            else {
+                formalRemainders[remainder] = i;
+            }
+        }
+        return false;
+    }
+};
+
+Runtime: 172 ms, faster than 56.33% of C++ online submissions for Continuous Subarray Sum.
+Memory Usage: 96.6 MB, less than 28.21% of C++ online submissions for Continuous Subarray Sum.
+
+--------------
+
+/**
+ * Return true, 
+ * if nums has a continuous subarray of size at least two, whose elements sum up to a multiple of k.
+ * Similar question as #523.
+ * 
+ * For example, 
+ * [2, 4] sum is 6, if k = 6, the answer will be true.
+ * 
+ * @algo1 Bruce force
+ *  Since the subarray must be continuous, check through the vector start from each i.
+ *  Then we can get the sum of the continuous sub array starts from i to j (i<j), and modulo the value by k .
+ *  
+ *  Time O(N^2)
+ *  Space O(1)
+ * 
+ * @algo2 Hashmap recording the remainder - using container to speed up in greedy -> O(N)?
+ *  We pile up the total sum to index i. 
+ *  Importantly, we know that if a subarray from i to j matches the rule below
+ *  
+ *  Rule - (sum[j] - sum[i]) % k = 0, (sum[j] - sum[i] represent the sum from i+1 to j)
+ *         => sum[j] % k - sum[i] % k = 0 
+ *         => sum[j] % k = sum[i] % k 
+ *  This give us the thought that if the sum's remainder appers twice, 
+ *  it might fit the condition if the two same appearance distance is far enough.
+ *  
+ *  So, we record the (sum[i] % k) as key and i ans value, which will help up match the at least 2 numbers in the array.
+ *  There might be multiple temporary remainders matches the conditions. 
+ *  But since we only have to return the existency, we have to keep the smallest i, which is the first i with key = (sum[i] % k).
+ * 
+ *  Time O(N) - Count every remainder for each i in nums
+ *  Space O(N) - Build up a map to record the formal remainders
+ */
